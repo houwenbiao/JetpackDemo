@@ -41,4 +41,7 @@
     <string name="next_step_button">Navigate next step</string>
     <string name="finish_button">Finish Flow</string>
     <string name="send_deep_link_notification_button">Send deep link notification</string>
+    <string name="txt_input_account_err">用户名输入有误！</string>
+    <string name="txt_input_pwd_err">密码输入错误！</string>
+    <string name="txt_login_success">登录成功！</string>
 </resources>

@@ -8,14 +8,14 @@
 package com.qtimes.jetpackdemo.ui.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.qtimes.jetpackdemo.R;
 import com.qtimes.jetpackdemo.databinding.FragmentLoginBinding;
-import com.qtimes.jetpackdemo.model.LoginModel;
+import com.qtimes.jetpackdemo.viewmodel.CustomViewModelProvider;
+import com.qtimes.jetpackdemo.viewmodel.LoginViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +32,8 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         FragmentLoginBinding fragmentLoginBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_login, container, false);
-        LoginModel loginModel = new LoginModel(getContext());
-        fragmentLoginBinding.setLoginModel(loginModel);
+        LoginViewModel loginViewModel = CustomViewModelProvider.providerLoginModel(getContext()).create(LoginViewModel.class);
+        fragmentLoginBinding.setLoginViewModel(loginViewModel);
         return fragmentLoginBinding.getRoot();
     }
 
@@ -42,10 +42,6 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String name = WelcomeFragmentArgs.fromBundle(bundle).getName();
-            Log.d(TAG, name);
         }
     }
-
-
 }
