@@ -1,18 +1,26 @@
 package com.qtimes.jetpackdemo.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.util.Log;
-
 import com.qtimes.jetpackdemo.R;
+import com.qtimes.jetpackdemo.ui.base.BaseActivity;
 
-public class WelcomeActivity extends AppCompatActivity {
+import androidx.lifecycle.ViewModel;
+
+public class WelcomeActivity extends BaseActivity {
     private static final String TAG = "WelcomeActivity";
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+    protected int getLayoutId() {
+        return R.layout.activity_welcome;
+    }
+
+    @Override
+    protected void bindingSetViewModels() {
+
+    }
+
+    @Override
+    protected ViewModel initViewModel() {
+        return null;
     }
 }

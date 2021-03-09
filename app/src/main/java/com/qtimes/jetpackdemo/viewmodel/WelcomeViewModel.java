@@ -7,20 +7,25 @@
 
 package com.qtimes.jetpackdemo.viewmodel;
 
-import android.content.Context;
+import android.content.Intent;
 
+import com.qtimes.jetpackdemo.db.AppDataBase;
+import com.qtimes.jetpackdemo.db.data.User;
+import com.qtimes.jetpackdemo.db.repository.UserRepository;
+import com.qtimes.jetpackdemo.ui.activity.MainActivity;
 import com.qtimes.jetpackdemo.ui.fragment.WelcomeFragmentDirections;
+import com.qtimes.jetpackdemo.utils.LogUtil;
+import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
-import androidx.lifecycle.ViewModel;
-import androidx.navigation.NavController;
+public class WelcomeViewModel extends BaseViewModel {
+    private UserRepository mUserRepository;
 
-public class WelcomeViewModel extends ViewModel {
-    private NavController mNavController;
-    private Context mContext;
-
-    public WelcomeViewModel(NavController navController, Context context) {
-        mNavController = navController;
-        mContext = context;
+    public WelcomeViewModel() {
+        mUserRepository = UserRepository.getInstance(AppDataBase.getInstance(mContext).getUserDao());
+        User loginUser = mUserRepository.getLoginUser();
+        if (loginUser != null) {
+            mContext.startActivity(new Intent(mContext, MainActivity.class));
+        }
     }
 
     /**

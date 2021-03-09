@@ -14,12 +14,16 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Long registerUser(User user);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    int updateUser(User user);
 
     @Delete
     void deleteUser(User user);
@@ -29,4 +33,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM USER WHERE user_account =:account")
     User findUserByAccount(String account);
+
+    @Query("select * from user where user_state == 1")
+    User findLoginUser();
 }

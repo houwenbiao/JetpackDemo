@@ -14,24 +14,23 @@ import com.qtimes.jetpackdemo.db.AppDataBase;
 import com.qtimes.jetpackdemo.db.data.User;
 import com.qtimes.jetpackdemo.db.repository.UserRepository;
 import com.qtimes.jetpackdemo.ui.fragment.RegisterFragmentDirections;
+import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 
-public class RegisterViewModel extends ViewModel {
+public class RegisterViewModel extends BaseViewModel {
     private static final String TAG = "RegisterViewModel";
 
     private UserRepository mUserRepository;
-    private NavController mNavController;
 
     public MutableLiveData<String> account = new MutableLiveData<>();
     public MutableLiveData<String> name = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
 
-    public RegisterViewModel(Context context, NavController navController) {
-        mUserRepository = UserRepository.getInstance(AppDataBase.getInstance(context).getUserDao());
-        mNavController = navController;
+    public RegisterViewModel() {
+        mUserRepository = UserRepository.getInstance(AppDataBase.getInstance(mContext).getUserDao());
     }
 
     /**

@@ -44,4 +44,7 @@
     <string name="txt_input_account_err">用户名输入有误！</string>
     <string name="txt_input_pwd_err">密码输入错误！</string>
     <string name="txt_login_success">登录成功！</string>
+    <string name="txt_user_unregister">当前用户未注册，请注册后登录！</string>
+    <string name="please_input_city_name">请输入城市名称</string>
+    <string name="txt_query_weather">查询天气</string>
 </resources>

@@ -2,7 +2,7 @@
  * Created with JackHou
  * Date: 2021/3/2
  * Time: 9:34
- * Description:
+ * Description:Room数据库
  */
 
 package com.qtimes.jetpackdemo.db;
@@ -24,7 +24,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {User.class, Shoe.class, FavoriteShoe.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Shoe.class, FavoriteShoe.class}, version = 6, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
     private static final String TAG = "AppDataBase";
 
@@ -43,6 +43,19 @@ public abstract class AppDataBase extends RoomDatabase {
             database.execSQL("create unique index index_user_account on user(user_account)");
         }
     };
+
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("create table user_table as select " +
+                    "id, user_account, user_name, user_password, " +
+                    "street, state, city, postCode from user");
+            database.execSQL("drop table user");
+            database.execSQL("alter table user_table rename to user");
+            database.execSQL("alter table user add cloumn user_state not null default '-1'");
+        }
+    };
+
 
     public static AppDataBase getInstance(Context context) {
 
@@ -64,7 +77,9 @@ public abstract class AppDataBase extends RoomDatabase {
                         super.onCreate(db);
                         Log.d(TAG, "jetpack_demo_db created");
                     }
-                }).addMigrations(MIGRATION_2_3)
+                })
+                .fallbackToDestructiveMigration()
+//                .addMigrations(MIGRATION_2_3, MIGRATION_4_5)
                 .allowMainThreadQueries().build();
     }
 }

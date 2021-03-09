@@ -2,46 +2,37 @@
  * Created with JackHou
  * Date: 2021/2/24
  * Time: 18:30
- * Description:
+ * Description:登录界面UI
  */
 
 package com.qtimes.jetpackdemo.ui.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.qtimes.jetpackdemo.R;
 import com.qtimes.jetpackdemo.databinding.FragmentLoginBinding;
-import com.qtimes.jetpackdemo.viewmodel.CustomViewModelProvider;
+import com.qtimes.jetpackdemo.ui.base.BaseFragment;
 import com.qtimes.jetpackdemo.viewmodel.LoginViewModel;
+import com.qtimes.jetpackdemo.viewmodel.base.JViewModelProvider;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends BaseFragment {
     private static final String TAG = "LoginFragment";
+    private LoginViewModel mLoginViewModel;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        FragmentLoginBinding fragmentLoginBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_login, container, false);
-        LoginViewModel loginViewModel = CustomViewModelProvider.providerLoginModel(getContext()).create(LoginViewModel.class);
-        fragmentLoginBinding.setLoginViewModel(loginViewModel);
-        return fragmentLoginBinding.getRoot();
+    protected void bindingSetViewModels() {
+        FragmentLoginBinding binding = (FragmentLoginBinding) mDataBinding;
+        binding.setLoginViewModel(mLoginViewModel);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-        }
+    protected int getLayoutId() {
+        return R.layout.fragment_login;
+    }
+
+    @Override
+    protected ViewModel initViewModel() {
+        mLoginViewModel = JViewModelProvider.get(this, LoginViewModel.class, mNavController);
+        return mLoginViewModel;
     }
 }

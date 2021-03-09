@@ -7,6 +7,8 @@
 
 package com.qtimes.jetpackdemo.db.data;
 
+import com.qtimes.jetpackdemo.db.enums.UserState;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -33,13 +35,14 @@ public class User {
     @Embedded
     private Address address;
 
-    @Ignore
+    @ColumnInfo(name = "user_state", defaultValue = "-1")
     private int state;
 
     public User(String account, String name, String password) {
         this.account = account;
         this.name = name;
         this.password = password;
+        this.state = UserState.RESOLVE.getStateId();
     }
 
     public String getAccount() {

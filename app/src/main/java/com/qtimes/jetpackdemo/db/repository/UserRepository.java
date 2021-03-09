@@ -10,8 +10,6 @@ package com.qtimes.jetpackdemo.db.repository;
 import com.qtimes.jetpackdemo.db.dao.UserDao;
 import com.qtimes.jetpackdemo.db.data.User;
 
-import java.security.PublicKey;
-
 public class UserRepository {
     private final UserDao mUserDao;
     private static UserRepository instance;
@@ -43,10 +41,11 @@ public class UserRepository {
 
     /**
      * 通过用户名
+     *
      * @param account 用户名
      * @return User
      */
-    public User findUserByAccount(String account){
+    public User findUserByAccount(String account) {
         return mUserDao.findUserByAccount(account);
     }
 
@@ -62,6 +61,16 @@ public class UserRepository {
         return mUserDao.registerUser(new User(account, name, password));
     }
 
+    /**
+     * 更新用户信息
+     *
+     * @param user user
+     * @return id
+     */
+    public int updateUser(User user) {
+        return mUserDao.updateUser(user);
+    }
+
 
     /**
      * 注销用户
@@ -70,5 +79,14 @@ public class UserRepository {
      */
     public void unregister(User user) {
         mUserDao.deleteUser(user);
+    }
+
+    /**
+     * 查询一登录用户
+     *
+     * @return user
+     */
+    public User getLoginUser() {
+        return mUserDao.findLoginUser();
     }
 }

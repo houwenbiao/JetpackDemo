@@ -7,27 +7,27 @@
 
 package com.qtimes.jetpackdemo.viewmodel;
 
-import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
 import com.qtimes.jetpackdemo.R;
 import com.qtimes.jetpackdemo.db.AppDataBase;
 import com.qtimes.jetpackdemo.db.data.User;
+import com.qtimes.jetpackdemo.db.enums.UserState;
 import com.qtimes.jetpackdemo.db.repository.UserRepository;
 import com.qtimes.jetpackdemo.ui.activity.MainActivity;
+import com.qtimes.jetpackdemo.ui.fragment.LoginFragmentDirections;
+import com.qtimes.jetpackdemo.utils.LogUtil;
+import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends BaseViewModel {
     public MutableLiveData<String> name = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
-    private final Context mContext;
     private final UserRepository mUserRepository;
 
-    public LoginViewModel(Context context) {
-        mContext = context;
+    public LoginViewModel() {
         mUserRepository = UserRepository.getInstance(AppDataBase.getInstance(mContext).getUserDao());
     }
 
@@ -38,11 +38,19 @@ public class LoginViewModel extends ViewModel {
             return;
         }
         User localUser = mUserRepository.findUserByAccount(name.getValue());
+        LogUtil.d("localUser: " + localUser);
+        if (localUser == null) {
+            showToast(mContext.getString(R.string.txt_user_unregister));
+            mNavController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment());
+            return;
+        }
         if (!localUser.getPassword().equals(password.getValue())) {
             Toast.makeText(mContext, mContext.getString(R.string.txt_input_pwd_err),
                     Toast.LENGTH_SHORT).show();
             return;
         }
+        localUser.setState(UserState.LOGIN.getStateId());
+        mUserRepository.updateUser(localUser);
         Toast.makeText(mContext, mContext.getString(R.string.txt_login_success),
                 Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(mContext, MainActivity.class);

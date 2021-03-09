@@ -39,10 +39,10 @@ public interface ShoeDao {
     @Update
     void updateShoes(List<Shoe> shoes);
 
-    @Query("SELECT * FROM shoe WHERE id=:id")
+    @Query("SELECT * FROM shoe WHERE id= :id")
     Shoe findShoeById(long id);
 
-    @Query("SELECT * FROM SHOE WHERE shoe_brand=:brand")
+    @Query("SELECT * FROM SHOE WHERE shoe_brand= :brand")
     List<Shoe> findShoesByBrand(String brand);
 
     @Query("SELECT * FROM SHOE WHERE shoe_name LIKE :name ORDER BY shoe_brand ASC")

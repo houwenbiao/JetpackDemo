@@ -7,26 +7,31 @@
 
 package com.qtimes.jetpackdemo.ui.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.qtimes.jetpackdemo.R;
+import com.qtimes.jetpackdemo.databinding.FragmentMainBinding;
+import com.qtimes.jetpackdemo.ui.base.BaseFragment;
+import com.qtimes.jetpackdemo.viewmodel.WeatherViewModel;
+import com.qtimes.jetpackdemo.viewmodel.base.JViewModelProvider;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 
-public class MainFragment extends Fragment {
-    @Nullable
+public class MainFragment extends BaseFragment {
+    private WeatherViewModel mWeatherViewModel;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+    protected void bindingSetViewModels() {
+        FragmentMainBinding binding = (FragmentMainBinding) mDataBinding;
+        binding.setWeatherViewModel(mWeatherViewModel);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.fragment_main;
+    }
+
+    @Override
+    protected ViewModel initViewModel() {
+        mWeatherViewModel = JViewModelProvider.get(this, WeatherViewModel.class);
+        return mWeatherViewModel;
     }
 }

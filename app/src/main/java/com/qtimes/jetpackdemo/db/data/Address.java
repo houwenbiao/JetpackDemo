@@ -9,13 +9,11 @@ package com.qtimes.jetpackdemo.db.data;
 
 public class Address {
     private String street;
-    private String state;
     private String city;
     private String postCode;
 
-    public Address(String street, String state, String city, String postCode) {
+    public Address(String street, String city, String postCode) {
         this.street = street;
-        this.state = state;
         this.city = city;
         this.postCode = postCode;
     }
@@ -26,14 +24,6 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getCity() {

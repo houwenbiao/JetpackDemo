@@ -7,39 +7,35 @@
 
 package com.qtimes.jetpackdemo.ui.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.qtimes.jetpackdemo.R;
 import com.qtimes.jetpackdemo.databinding.FragmentWelcomeBinding;
-import com.qtimes.jetpackdemo.viewmodel.CustomViewModelProvider;
+import com.qtimes.jetpackdemo.ui.base.BaseFragment;
 import com.qtimes.jetpackdemo.viewmodel.WelcomeViewModel;
+import com.qtimes.jetpackdemo.viewmodel.base.JViewModelProvider;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.lifecycle.ViewModel;
 
-public class WelcomeFragment extends Fragment {
+public class WelcomeFragment extends BaseFragment {
 
-    @Nullable
+    WelcomeViewModel mWelcomeViewModel;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentWelcomeBinding binding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_welcome, container, false);
-        WelcomeViewModel welcomeViewModel = CustomViewModelProvider
-                .providerWelcomeModel(getContext(), Navigation.findNavController(container))
-                .create(WelcomeViewModel.class);
-        binding.setWelcomeModel(welcomeViewModel);
-        return binding.getRoot();
+    protected void bindingSetViewModels() {
+        FragmentWelcomeBinding binding = (FragmentWelcomeBinding) mDataBinding;
+        binding.setWelcomeModel(mWelcomeViewModel);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.fragment_welcome;
+    }
+
+    @Override
+    protected ViewModel initViewModel() {
+        mWelcomeViewModel = JViewModelProvider.get(
+                this,
+                WelcomeViewModel.class,
+                mNavController);
+        return mWelcomeViewModel;
     }
 }
