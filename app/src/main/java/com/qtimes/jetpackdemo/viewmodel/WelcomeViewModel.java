@@ -10,18 +10,24 @@ package com.qtimes.jetpackdemo.viewmodel;
 import android.content.Intent;
 
 import com.qtimes.jetpackdemo.db.AppDataBase;
-import com.qtimes.jetpackdemo.db.data.User;
-import com.qtimes.jetpackdemo.db.repository.UserRepository;
+import com.qtimes.jetpackdemo.db.bean.User;
+import com.qtimes.jetpackdemo.repository.RepositoryProvider;
+import com.qtimes.jetpackdemo.repository.UserRepository;
 import com.qtimes.jetpackdemo.ui.activity.MainActivity;
 import com.qtimes.jetpackdemo.ui.fragment.WelcomeFragmentDirections;
-import com.qtimes.jetpackdemo.utils.LogUtil;
 import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
-public class WelcomeViewModel extends BaseViewModel {
-    private UserRepository mUserRepository;
+import javax.inject.Inject;
 
-    public WelcomeViewModel() {
-        mUserRepository = UserRepository.getInstance(AppDataBase.getInstance(mContext).getUserDao());
+import androidx.hilt.lifecycle.ViewModelInject;
+
+public class WelcomeViewModel extends BaseViewModel {
+
+    UserRepository mUserRepository;
+
+    @ViewModelInject
+    public WelcomeViewModel(UserRepository userRepository) {
+        this.mUserRepository = userRepository;
         User loginUser = mUserRepository.getLoginUser();
         if (loginUser != null) {
             mContext.startActivity(new Intent(mContext, MainActivity.class));

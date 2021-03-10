@@ -2,15 +2,15 @@
  * Created with JackHou
  * Date: 2021/3/6
  * Time: 16:44
- * Description:
+ * Description:基础代理类
  */
 
 package com.qtimes.jetpackdemo.net.basic.base;
 
-public class BaseRepo<T> {
+public class BaseRepository<T> {
     protected T remoteDataSource;
 
-    public BaseRepo(T remoteDataSource) {
+    public BaseRepository(T remoteDataSource) {
         this.remoteDataSource = remoteDataSource;
     }
 }

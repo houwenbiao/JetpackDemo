@@ -2,7 +2,7 @@
  * Created with JackHou
  * Date: 2021/3/6
  * Time: 15:44
- * Description:
+ * Description:Retrofit Manager
  */
 
 package com.qtimes.jetpackdemo.net;
@@ -30,28 +30,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.qtimes.jetpackdemo.net.basic.exception.*;
 
+import javax.inject.Inject;
+
 import static com.qtimes.jetpackdemo.net.basic.config.HttpConfig.CONNECT_TIMEOUT;
 import static com.qtimes.jetpackdemo.net.basic.config.HttpConfig.READ_TIMEOUT;
 import static com.qtimes.jetpackdemo.net.basic.config.HttpConfig.WRITE_TIMEOUT;
 
 public class RetrofitManager {
-    private static RetrofitManager instance;
 
     private final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
-
-    public RetrofitManager() {
-    }
-
-    public static RetrofitManager getInstance() {
-        if (instance == null) {
-            synchronized (RetrofitManager.class) {
-                if (instance == null) {
-                    instance = new RetrofitManager();
-                }
-            }
-        }
-        return instance;
-    }
 
     private Retrofit createRetrofit(String url) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
@@ -71,7 +58,7 @@ public class RetrofitManager {
         return new Retrofit.Builder()
                 .client(client)
                 .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())//
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
     }

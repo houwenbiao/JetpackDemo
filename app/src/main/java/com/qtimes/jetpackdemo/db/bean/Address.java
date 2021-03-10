@@ -5,7 +5,7 @@
  * Description:
  */
 
-package com.qtimes.jetpackdemo.db.data;
+package com.qtimes.jetpackdemo.db.bean;
 
 public class Address {
     private String street;

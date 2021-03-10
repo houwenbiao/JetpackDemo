@@ -5,14 +5,13 @@
  * Description:用户表
  */
 
-package com.qtimes.jetpackdemo.db.data;
+package com.qtimes.jetpackdemo.db.bean;
 
 import com.qtimes.jetpackdemo.db.enums.UserState;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 

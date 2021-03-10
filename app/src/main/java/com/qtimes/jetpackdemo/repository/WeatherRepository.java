@@ -2,21 +2,25 @@
  * Created with JackHou
  * Date: 2021/3/6
  * Time: 17:33
- * Description:
+ * Description:天气代理类
  */
 
-package com.qtimes.jetpackdemo.net.repo;
+package com.qtimes.jetpackdemo.repository;
 
 import com.qtimes.jetpackdemo.data.Weather;
-import com.qtimes.jetpackdemo.net.basic.base.BaseRepo;
+import com.qtimes.jetpackdemo.net.basic.base.BaseRepository;
 import com.qtimes.jetpackdemo.net.basic.callback.RequestCallback;
+import com.qtimes.jetpackdemo.net.datasource.WeatherDataSource;
 import com.qtimes.jetpackdemo.net.datasource.base.IWeatherDataSource;
+
+import javax.inject.Inject;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class WeatherRepo extends BaseRepo<IWeatherDataSource> {
+public class WeatherRepository extends BaseRepository<IWeatherDataSource> {
 
-    public WeatherRepo(IWeatherDataSource remoteDataSource) {
+    @Inject
+    public WeatherRepository(WeatherDataSource remoteDataSource) {
         super(remoteDataSource);
     }
 

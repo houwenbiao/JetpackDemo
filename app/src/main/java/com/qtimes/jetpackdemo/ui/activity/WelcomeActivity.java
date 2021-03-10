@@ -4,7 +4,9 @@ import com.qtimes.jetpackdemo.R;
 import com.qtimes.jetpackdemo.ui.base.BaseActivity;
 
 import androidx.lifecycle.ViewModel;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class WelcomeActivity extends BaseActivity {
     private static final String TAG = "WelcomeActivity";
 

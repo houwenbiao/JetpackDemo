@@ -2,7 +2,7 @@
  * Created with JackHou
  * Date: 2021/3/3
  * Time: 16:26
- * Description:
+ * Description:Application
  */
 
 package com.qtimes.jetpackdemo.common;
@@ -11,7 +11,9 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.multidex.MultiDex;
+import dagger.hilt.android.HiltAndroidApp;
 
+@HiltAndroidApp
 public class BaseApplication extends Application {
     public static Application mContext;
 

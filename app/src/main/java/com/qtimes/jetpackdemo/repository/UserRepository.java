@@ -5,28 +5,24 @@
  * Description:用户处理的仓库
  */
 
-package com.qtimes.jetpackdemo.db.repository;
+package com.qtimes.jetpackdemo.repository;
 
+import com.qtimes.jetpackdemo.db.bean.User;
 import com.qtimes.jetpackdemo.db.dao.UserDao;
-import com.qtimes.jetpackdemo.db.data.User;
+import com.qtimes.jetpackdemo.net.basic.base.BaseRepository;
+import com.qtimes.jetpackdemo.net.datasource.UserDataSource;
+import com.qtimes.jetpackdemo.net.datasource.base.IUserDataSource;
 
-public class UserRepository {
-    private final UserDao mUserDao;
-    private static UserRepository instance;
+import javax.inject.Inject;
 
-    private UserRepository(UserDao userDao) {
+public class UserRepository extends BaseRepository<IUserDataSource> {
+
+    UserDao mUserDao;
+
+    @Inject
+    public UserRepository(UserDao userDao, UserDataSource dataSource) {
+        super(dataSource);
         mUserDao = userDao;
-    }
-
-    public static UserRepository getInstance(UserDao userDao) {
-        if (instance == null) {
-            synchronized (UserRepository.class) {
-                if (instance == null) {
-                    instance = new UserRepository(userDao);
-                }
-            }
-        }
-        return instance;
     }
 
     /**

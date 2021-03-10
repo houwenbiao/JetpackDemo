@@ -14,7 +14,9 @@ import com.qtimes.jetpackdemo.viewmodel.RegisterViewModel;
 import com.qtimes.jetpackdemo.viewmodel.base.JViewModelProvider;
 
 import androidx.lifecycle.ViewModel;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class RegisterFragment extends BaseFragment {
     private RegisterViewModel mRegisterViewModel;
 

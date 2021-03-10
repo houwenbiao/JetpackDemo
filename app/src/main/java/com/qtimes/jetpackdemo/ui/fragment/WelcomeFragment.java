@@ -14,7 +14,9 @@ import com.qtimes.jetpackdemo.viewmodel.WelcomeViewModel;
 import com.qtimes.jetpackdemo.viewmodel.base.JViewModelProvider;
 
 import androidx.lifecycle.ViewModel;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class WelcomeFragment extends BaseFragment {
 
     WelcomeViewModel mWelcomeViewModel;

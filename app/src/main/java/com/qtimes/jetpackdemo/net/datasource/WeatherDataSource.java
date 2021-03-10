@@ -2,7 +2,7 @@
  * Created with JackHou
  * Date: 2021/3/6
  * Time: 17:30
- * Description:
+ * Description:天气相关网络请求数据源
  */
 
 package com.qtimes.jetpackdemo.net.datasource;
@@ -14,10 +14,13 @@ import com.qtimes.jetpackdemo.net.datasource.base.IWeatherDataSource;
 import com.qtimes.jetpackdemo.net.service.ApiService;
 import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
+import javax.inject.Inject;
+
 public class WeatherDataSource extends BaseRemoteDataSource implements IWeatherDataSource {
 
-    public WeatherDataSource(BaseViewModel baseViewModel) {
-        super(baseViewModel);
+    @Inject
+    public WeatherDataSource() {
+        super();
     }
 
     @Override

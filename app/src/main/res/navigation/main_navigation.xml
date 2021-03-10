@@ -11,7 +11,7 @@
         android:label="MainFragment" />
     <fragment
         android:id="@+id/marketFragment"
-        android:name="com.qtimes.jetpackdemo.ui.fragment.MarketFragment"
+        android:name="com.qtimes.jetpackdemo.ui.fragment.NewsFragment"
         android:label="MarketFragment" />
     <fragment
         android:id="@+id/meFragment"

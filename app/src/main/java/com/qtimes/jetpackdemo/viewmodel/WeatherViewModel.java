@@ -8,23 +8,25 @@
 package com.qtimes.jetpackdemo.viewmodel;
 
 import com.qtimes.jetpackdemo.data.Weather;
-import com.qtimes.jetpackdemo.net.datasource.WeatherDataSource;
-import com.qtimes.jetpackdemo.net.repo.WeatherRepo;
+import com.qtimes.jetpackdemo.repository.RepositoryProvider;
+import com.qtimes.jetpackdemo.repository.WeatherRepository;
 import com.qtimes.jetpackdemo.utils.LogUtil;
 import com.qtimes.jetpackdemo.utils.StringUtil;
 import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
+import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 
 public class WeatherViewModel extends BaseViewModel {
     private MutableLiveData<Weather> mWeatherMutableLiveData;
     private MutableLiveData<String> cityName;
-    private final WeatherRepo mWeatherRepo;
+    private final WeatherRepository mWeatherRepository;
 
-    public WeatherViewModel() {
+    @ViewModelInject
+    public WeatherViewModel(WeatherRepository weatherRepository) {
+        this.mWeatherRepository = weatherRepository;
         mWeatherMutableLiveData = new MutableLiveData<>();
         cityName = new MutableLiveData<>();
-        mWeatherRepo = new WeatherRepo(new WeatherDataSource(this));
     }
 
     public void queryWeather() {
@@ -33,7 +35,7 @@ public class WeatherViewModel extends BaseViewModel {
         if (cityName.getValue() == null) {
             return;
         }
-        mWeatherRepo.queryWeather(StringUtil.replaceBlank(cityName.getValue()))
+        mWeatherRepository.queryWeather(StringUtil.replaceBlank(cityName.getValue()))
                 .observe(mLifecycleOwner, weather -> mWeatherMutableLiveData.postValue(weather));
     }
 

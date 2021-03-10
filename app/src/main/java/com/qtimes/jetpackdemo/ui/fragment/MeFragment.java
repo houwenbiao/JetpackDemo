@@ -7,26 +7,27 @@
 
 package com.qtimes.jetpackdemo.ui.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.qtimes.jetpackdemo.R;
+import com.qtimes.jetpackdemo.ui.base.BaseFragment;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class MeFragment extends Fragment {
-    @Nullable
+@AndroidEntryPoint
+public class MeFragment extends BaseFragment {
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_third, container, false);
+    protected void bindingSetViewModels() {
+
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.fragment_third;
+    }
+
+    @Override
+    protected ViewModel initViewModel() {
+        return null;
     }
 }

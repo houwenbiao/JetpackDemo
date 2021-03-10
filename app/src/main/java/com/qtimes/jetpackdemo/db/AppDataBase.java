@@ -13,9 +13,9 @@ import android.util.Log;
 import com.qtimes.jetpackdemo.db.dao.FavoriteShoeDao;
 import com.qtimes.jetpackdemo.db.dao.ShoeDao;
 import com.qtimes.jetpackdemo.db.dao.UserDao;
-import com.qtimes.jetpackdemo.db.data.FavoriteShoe;
-import com.qtimes.jetpackdemo.db.data.Shoe;
-import com.qtimes.jetpackdemo.db.data.User;
+import com.qtimes.jetpackdemo.db.bean.FavoriteShoe;
+import com.qtimes.jetpackdemo.db.bean.Shoe;
+import com.qtimes.jetpackdemo.db.bean.User;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -28,13 +28,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 public abstract class AppDataBase extends RoomDatabase {
     private static final String TAG = "AppDataBase";
 
-    private static AppDataBase instance;
 
     public abstract UserDao getUserDao();
 
     public abstract ShoeDao getShoeDao();
 
-    public abstract FavoriteShoeDao favoriteShoeDao();
+    public abstract FavoriteShoeDao getFavoriteShoeDao();
 
     static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
@@ -57,19 +56,7 @@ public abstract class AppDataBase extends RoomDatabase {
     };
 
 
-    public static AppDataBase getInstance(Context context) {
-
-        if (instance == null) {
-            synchronized (AppDataBase.class) {
-                if (instance == null) {
-                    instance = buildDatabase(context);
-                }
-            }
-        }
-        return instance;
-    }
-
-    private static AppDataBase buildDatabase(Context context) {
+    public static AppDataBase buildDatabase(Context context) {
         return Room.databaseBuilder(context, AppDataBase.class, "jetpack_demo_db")
                 .addCallback(new Callback() {
                     @Override

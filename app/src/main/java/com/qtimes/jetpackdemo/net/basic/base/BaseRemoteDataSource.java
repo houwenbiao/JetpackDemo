@@ -7,6 +7,7 @@
 
 package com.qtimes.jetpackdemo.net.basic.base;
 
+import com.qtimes.jetpackdemo.common.BaseApplication;
 import com.qtimes.jetpackdemo.net.RetrofitManager;
 import com.qtimes.jetpackdemo.net.basic.callback.RequestCallback;
 import com.qtimes.jetpackdemo.net.basic.config.HttpConfig;
@@ -14,6 +15,13 @@ import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.EntryPointAccessors;
+import dagger.hilt.android.components.ApplicationComponent;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.ObservableTransformer;
@@ -24,12 +32,26 @@ import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public abstract class BaseRemoteDataSource {
-    private CompositeDisposable mCompositeDisposable;
-    private BaseViewModel mBaseViewModel;
+    private final CompositeDisposable mCompositeDisposable;
+//    private final BaseViewModel mBaseViewModel;
 
-    public BaseRemoteDataSource(BaseViewModel baseViewModel) {
+    /*Hilt 对不支持的类使用注入需要如下处理*/
+    @EntryPoint
+    @InstallIn(ApplicationComponent.class)
+    interface BaseRemoteDataSourceEntryPoint {
+        RetrofitManager retrofitManager();
+    }
+
+    public RetrofitManager mRetrofitManager;
+
+    public BaseRemoteDataSource() {
         mCompositeDisposable = new CompositeDisposable();
-        mBaseViewModel = baseViewModel;
+//        mBaseViewModel = baseViewModel;
+        BaseRemoteDataSourceEntryPoint point =
+                EntryPointAccessors.fromApplication(
+                        BaseApplication.getContext(),
+                        BaseRemoteDataSourceEntryPoint.class);
+        mRetrofitManager = point.retrofitManager();
     }
 
     protected <T> T getService(Class<T> clazz) {
@@ -37,11 +59,11 @@ public abstract class BaseRemoteDataSource {
     }
 
     protected <T> T getService(Class<T> clazz, String host) {
-        return RetrofitManager.getInstance().getService(clazz, host);
+        return mRetrofitManager.getService(clazz, host);
     }
 
     private <T> ObservableTransformer<BaseResponseBody<T>, T> applySchedulers() {
-        return RetrofitManager.getInstance().applySchedulers();
+        return mRetrofitManager.applySchedulers();
     }
 
     protected <T> void execute(Observable observable, RequestCallback<T> callback) {
@@ -58,7 +80,7 @@ public abstract class BaseRemoteDataSource {
 
     private void execute(Observable observable, Observer observer, boolean isDismiss) {
         Disposable disposable = (Disposable) observable
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)//过滤连续事件
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -90,15 +112,15 @@ public abstract class BaseRemoteDataSource {
     }
 
     private void showLoading() {
-        if (mBaseViewModel != null) {
-            mBaseViewModel.startLoading();
-        }
+//        if (mBaseViewModel != null) {
+//            mBaseViewModel.startLoading();
+//        }
     }
 
     private void dismissLoading() {
-        if (mBaseViewModel != null) {
-            mBaseViewModel.dismissLoading();
-        }
+//        if (mBaseViewModel != null) {
+//            mBaseViewModel.dismissLoading();
+//        }
     }
 
     private <T> ObservableTransformer<T, T> loadingTransformer(boolean isDismiss) {
@@ -113,5 +135,4 @@ public abstract class BaseRemoteDataSource {
                     }
                 });
     }
-
 }

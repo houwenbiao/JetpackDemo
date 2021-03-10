@@ -11,24 +11,28 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.qtimes.jetpackdemo.R;
-import com.qtimes.jetpackdemo.db.AppDataBase;
-import com.qtimes.jetpackdemo.db.data.User;
+import com.qtimes.jetpackdemo.db.bean.User;
 import com.qtimes.jetpackdemo.db.enums.UserState;
-import com.qtimes.jetpackdemo.db.repository.UserRepository;
+import com.qtimes.jetpackdemo.repository.RepositoryProvider;
+import com.qtimes.jetpackdemo.repository.UserRepository;
 import com.qtimes.jetpackdemo.ui.activity.MainActivity;
 import com.qtimes.jetpackdemo.ui.fragment.LoginFragmentDirections;
 import com.qtimes.jetpackdemo.utils.LogUtil;
 import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
+import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
+
 
 public class LoginViewModel extends BaseViewModel {
     public MutableLiveData<String> name = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
-    private final UserRepository mUserRepository;
 
-    public LoginViewModel() {
-        mUserRepository = UserRepository.getInstance(AppDataBase.getInstance(mContext).getUserDao());
+    UserRepository mUserRepository;
+
+    @ViewModelInject
+    public LoginViewModel(UserRepository userRepository) {
+        this.mUserRepository = userRepository;
     }
 
     public void login() {

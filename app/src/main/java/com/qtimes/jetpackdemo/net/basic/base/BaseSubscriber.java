@@ -7,8 +7,6 @@
 
 package com.qtimes.jetpackdemo.net.basic.base;
 
-import android.os.MessageQueue;
-
 import com.qtimes.jetpackdemo.net.basic.callback.RequestCallback;
 import com.qtimes.jetpackdemo.net.basic.callback.RequestMultiplyCallback;
 import com.qtimes.jetpackdemo.net.basic.config.HttpConfig;

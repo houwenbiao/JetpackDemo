@@ -7,7 +7,7 @@
 
 package com.qtimes.jetpackdemo.db.dao;
 
-import com.qtimes.jetpackdemo.db.data.FavoriteShoe;
+import com.qtimes.jetpackdemo.db.bean.FavoriteShoe;
 
 import java.util.List;
 

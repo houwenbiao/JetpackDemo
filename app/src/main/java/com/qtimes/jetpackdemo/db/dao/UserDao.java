@@ -7,7 +7,7 @@
 
 package com.qtimes.jetpackdemo.db.dao;
 
-import com.qtimes.jetpackdemo.db.data.User;
+import com.qtimes.jetpackdemo.db.bean.User;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

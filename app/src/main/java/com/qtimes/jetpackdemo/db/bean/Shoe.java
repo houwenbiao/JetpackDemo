@@ -5,7 +5,7 @@
  * Description:
  */
 
-package com.qtimes.jetpackdemo.db.data;
+package com.qtimes.jetpackdemo.db.bean;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

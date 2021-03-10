@@ -8,32 +8,33 @@
 package com.qtimes.jetpackdemo.ui.fragment;
 
 import com.qtimes.jetpackdemo.R;
-import com.qtimes.jetpackdemo.databinding.FragmentMainBinding;
+import com.qtimes.jetpackdemo.databinding.FragmentNewsBinding;
 import com.qtimes.jetpackdemo.ui.base.BaseFragment;
-import com.qtimes.jetpackdemo.viewmodel.WeatherViewModel;
+import com.qtimes.jetpackdemo.viewmodel.NewsViewModel;
 import com.qtimes.jetpackdemo.viewmodel.base.JViewModelProvider;
 
 import androidx.lifecycle.ViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainFragment extends BaseFragment {
-    private WeatherViewModel mWeatherViewModel;
+public class NewsFragment extends BaseFragment {
+
+    private NewsViewModel mNewsViewModel;
 
     @Override
     protected void bindingSetViewModels() {
-        FragmentMainBinding binding = (FragmentMainBinding) mDataBinding;
-        binding.setWeatherViewModel(mWeatherViewModel);
+        FragmentNewsBinding binding = (FragmentNewsBinding) mDataBinding;
+        binding.setNewsViewModel(mNewsViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_news;
     }
 
     @Override
     protected ViewModel initViewModel() {
-        mWeatherViewModel = JViewModelProvider.get(this, WeatherViewModel.class);
-        return mWeatherViewModel;
+        mNewsViewModel = JViewModelProvider.get(this, NewsViewModel.class, mNavController);
+        return null;
     }
 }

@@ -7,30 +7,31 @@
 
 package com.qtimes.jetpackdemo.viewmodel;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.qtimes.jetpackdemo.db.AppDataBase;
-import com.qtimes.jetpackdemo.db.data.User;
-import com.qtimes.jetpackdemo.db.repository.UserRepository;
+import com.qtimes.jetpackdemo.db.bean.User;
+import com.qtimes.jetpackdemo.repository.RepositoryProvider;
+import com.qtimes.jetpackdemo.repository.UserRepository;
 import com.qtimes.jetpackdemo.ui.fragment.RegisterFragmentDirections;
 import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
+import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.navigation.NavController;
+import dagger.hilt.android.scopes.ActivityRetainedScoped;
 
 public class RegisterViewModel extends BaseViewModel {
     private static final String TAG = "RegisterViewModel";
 
-    private UserRepository mUserRepository;
+    UserRepository mUserRepository;
 
     public MutableLiveData<String> account = new MutableLiveData<>();
     public MutableLiveData<String> name = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();
 
-    public RegisterViewModel() {
-        mUserRepository = UserRepository.getInstance(AppDataBase.getInstance(mContext).getUserDao());
+    @ViewModelInject
+    public RegisterViewModel(UserRepository userRepository) {
+        this.mUserRepository = userRepository;
     }
 
     /**
