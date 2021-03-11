@@ -5,7 +5,7 @@
  * Description:
  */
 
-package com.qtimes.jetpackdemo.data;
+package com.qtimes.jetpackdemo.bean;
 
 import java.util.List;
 

@@ -7,9 +7,10 @@
 
 package com.qtimes.jetpackdemo.repository;
 
-import com.qtimes.jetpackdemo.data.Weather;
+import com.qtimes.jetpackdemo.bean.Weather;
 import com.qtimes.jetpackdemo.net.basic.base.BaseRepository;
-import com.qtimes.jetpackdemo.net.basic.callback.RequestCallback;
+import com.qtimes.jetpackdemo.net.basic.callback.RequestMultiplyCallback;
+import com.qtimes.jetpackdemo.net.basic.exception.BaseException;
 import com.qtimes.jetpackdemo.net.datasource.WeatherDataSource;
 import com.qtimes.jetpackdemo.net.datasource.base.IWeatherDataSource;
 
@@ -24,14 +25,7 @@ public class WeatherRepository extends BaseRepository<IWeatherDataSource> {
         super(remoteDataSource);
     }
 
-    public MutableLiveData<Weather> queryWeather(String cityName) {
-        MutableLiveData<Weather> weatherMutableLiveData = new MutableLiveData<>();
-        remoteDataSource.queryWeather(cityName, new RequestCallback<Weather>() {
-            @Override
-            public void onSuccess(Weather weather) {
-                weatherMutableLiveData.postValue(weather);
-            }
-        });
-        return weatherMutableLiveData;
+    public void  queryWeather(String cityName, RequestMultiplyCallback<Weather> callback) {
+        remoteDataSource.queryWeather(cityName, callback);
     }
 }

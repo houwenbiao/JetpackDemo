@@ -7,7 +7,7 @@
 
 package com.qtimes.jetpackdemo.net.datasource.base;
 
-import com.qtimes.jetpackdemo.data.Weather;
+import com.qtimes.jetpackdemo.bean.Weather;
 import com.qtimes.jetpackdemo.net.basic.callback.RequestCallback;
 
 public interface IWeatherDataSource {

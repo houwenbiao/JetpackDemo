@@ -7,8 +7,9 @@
 
 package com.qtimes.jetpackdemo.viewmodel;
 
-import com.qtimes.jetpackdemo.data.Weather;
-import com.qtimes.jetpackdemo.repository.RepositoryProvider;
+import com.qtimes.jetpackdemo.bean.Weather;
+import com.qtimes.jetpackdemo.net.basic.callback.RequestMultiplyCallback;
+import com.qtimes.jetpackdemo.net.basic.exception.BaseException;
 import com.qtimes.jetpackdemo.repository.WeatherRepository;
 import com.qtimes.jetpackdemo.utils.LogUtil;
 import com.qtimes.jetpackdemo.utils.StringUtil;
@@ -30,13 +31,24 @@ public class WeatherViewModel extends BaseViewModel {
     }
 
     public void queryWeather() {
-        startLoading();
         LogUtil.d("queryWeather");
         if (cityName.getValue() == null) {
             return;
         }
-        mWeatherRepository.queryWeather(StringUtil.replaceBlank(cityName.getValue()))
-                .observe(mLifecycleOwner, weather -> mWeatherMutableLiveData.postValue(weather));
+        startLoading(String.format("查询%s的天气", cityName.getValue()));
+        mWeatherRepository.queryWeather(StringUtil.replaceBlank(cityName.getValue()),
+                new RequestMultiplyCallback<Weather>() {
+                    @Override
+                    public void onFailed(BaseException e) {
+                        dismissLoading();
+                    }
+
+                    @Override
+                    public void onSuccess(Weather weather) {
+                        mWeatherMutableLiveData.postValue(weather);
+                        dismissLoading();
+                    }
+                });
     }
 
     public MutableLiveData<String> getCityName() {

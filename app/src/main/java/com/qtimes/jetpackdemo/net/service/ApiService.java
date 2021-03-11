@@ -7,8 +7,8 @@
 
 package com.qtimes.jetpackdemo.net.service;
 
-import com.qtimes.jetpackdemo.data.NewsPack;
-import com.qtimes.jetpackdemo.data.Weather;
+import com.qtimes.jetpackdemo.bean.NewsPack;
+import com.qtimes.jetpackdemo.bean.Weather;
 import com.qtimes.jetpackdemo.net.basic.base.BaseResponseBody;
 import com.qtimes.jetpackdemo.net.basic.config.HttpConfig;
 

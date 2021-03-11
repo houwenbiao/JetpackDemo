@@ -7,12 +7,11 @@
 
 package com.qtimes.jetpackdemo.net.datasource;
 
-import com.qtimes.jetpackdemo.data.Weather;
+import com.qtimes.jetpackdemo.bean.Weather;
 import com.qtimes.jetpackdemo.net.basic.base.BaseRemoteDataSource;
 import com.qtimes.jetpackdemo.net.basic.callback.RequestCallback;
 import com.qtimes.jetpackdemo.net.datasource.base.IWeatherDataSource;
 import com.qtimes.jetpackdemo.net.service.ApiService;
-import com.qtimes.jetpackdemo.viewmodel.base.BaseViewModel;
 
 import javax.inject.Inject;
 
